@@ -10,6 +10,7 @@
 from estimater import *
 from datareader import *
 import argparse
+import os
 
 
 if __name__=='__main__':
@@ -69,8 +70,10 @@ if __name__=='__main__':
       center_pose = pose@np.linalg.inv(to_origin)
       vis = draw_posed_3d_box(reader.K, img=color, ob_in_cam=center_pose, bbox=bbox)
       vis = draw_xyz_axis(color, ob_in_cam=center_pose, scale=0.1, K=reader.K, thickness=3, transparency=0, is_input_rgb=True)
-      cv2.imshow('1', vis[...,::-1])
-      cv2.waitKey(1)
+      # cv2.imshow('1', vis[...,::-1])
+      # cv2.waitKey(1)
+      os.makedirs("output_run_demo", exist_ok=True)
+      cv2.imwrite(f"output_run_demo/frame_{i:04d}.png", vis)
 
 
     if debug>=2:
