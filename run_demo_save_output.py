@@ -66,14 +66,23 @@ if __name__=='__main__':
     os.makedirs(f'{debug_dir}/ob_in_cam', exist_ok=True)
     np.savetxt(f'{debug_dir}/ob_in_cam/{reader.id_strs[i]}.txt', pose.reshape(4,4))
 
+    # Create output structure
+    output_dir = 'output_run_demo'
+    poses_dir = os.path.join(output_dir, 'poses')
+    vis_dir = os.path.join(output_dir, 'vis')
+    os.makedirs(poses_dir, exist_ok=True)
+    os.makedirs(vis_dir, exist_ok=True)
+
+    # Save pose with 6-digit naming
+    np.savetxt(f'{poses_dir}/{i:06d}.txt', pose.reshape(4,4))
+
     if debug>=1:
       center_pose = pose@np.linalg.inv(to_origin)
       vis = draw_posed_3d_box(reader.K, img=color, ob_in_cam=center_pose, bbox=bbox)
       vis = draw_xyz_axis(color, ob_in_cam=center_pose, scale=0.1, K=reader.K, thickness=3, transparency=0, is_input_rgb=True)
       # cv2.imshow('1', vis[...,::-1])
       # cv2.waitKey(1)
-      os.makedirs("output_run_demo", exist_ok=True)
-      cv2.imwrite(f"output_run_demo/frame_{i:04d}.png", vis)
+      cv2.imwrite(f"{vis_dir}/{i:06d}.png", vis)
 
 
     if debug>=2:
