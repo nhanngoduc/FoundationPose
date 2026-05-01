@@ -13,8 +13,12 @@ if not os.path.exists(mesh_path):
 mesh = trimesh.load(mesh_path, force="mesh")
 
 print("Mesh loaded successfully!")
+# Vertices = số điểm 3D trên mesh.
+# Faces = số tam giác nối các điểm đó lại
 print("Vertices:", len(mesh.vertices))
 print("Faces:", len(mesh.faces))
+# Bounds là hộp bao quanh mesh theo 3 trục X, Y, Z.
 print("Bounds:")
 print(mesh.bounds)
+# kích thước tổng của mesh theo 3 chiều:
 print("Extents:", mesh.extents)
